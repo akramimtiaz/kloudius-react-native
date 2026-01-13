@@ -16,7 +16,7 @@ const loginSchema = z.object({
 type LoginForm = z.infer<typeof loginSchema>;
 
 export default function LoginScreen() {
-  const { logIn } = use(AuthContext);
+  const { login } = use(AuthContext);
   
   const {
     control,
@@ -31,7 +31,7 @@ export default function LoginScreen() {
   });
 
   const onSubmit = (data: LoginForm) => {
-    logIn(data.email, data.password);
+    login(data.email, data.password);
   };
 
   return (
