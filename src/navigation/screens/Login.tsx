@@ -2,7 +2,8 @@ import { AuthContext } from "@/contexts/auth";
 import { TextInput } from "react-native";
 import { Link } from "@react-navigation/native";
 import { use, useState } from "react";
-import { Button, Text, View, Pressable } from "react-native";
+import { Text, View, Pressable } from "react-native";
+import clsx from 'clsx';
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,6 +28,7 @@ export default function LoginScreen() {
     formState: { errors },
   } = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
+    reValidateMode: 'onBlur',
     defaultValues: {
       email: "",
       password: "",
@@ -57,7 +59,10 @@ export default function LoginScreen() {
           {/* Email */}
           <View className="gap-2">
             <Text className="text-base">Email</Text>
-            <View className="py-3 px-2 border rounded-md border-green-600">
+            <View className={clsx(
+              "py-3 px-2 border rounded-md border-green-600",
+              errors.email && 'border-red-600'
+            )}>
               <Controller
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
@@ -72,14 +77,17 @@ export default function LoginScreen() {
                 )}
                 name="email"
               />
-              {errors.email && <Text>{errors.email.message}</Text>}
             </View>
+            {errors.email && <Text className="color-red-600 font-semibold">{errors.email.message}</Text>}
           </View>
 
           {/* Password */}
           <View className="gap-2">
             <Text className="text-base">Password</Text>
-            <View className="py-3 px-2 border rounded-md border-green-600">
+            <View className={clsx(
+              "py-3 px-2 border rounded-md border-green-600",
+              errors.password && 'border-red-600'
+            )}>
               <Controller
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
@@ -94,8 +102,8 @@ export default function LoginScreen() {
                 )}
                 name="password"
               />
-              {errors.password && <Text>{errors.password.message}</Text>}
             </View>
+              {errors.password && <Text className="color-red-600 font-semibold">{errors.password.message}</Text>}
           </View>
 
           <Pressable
