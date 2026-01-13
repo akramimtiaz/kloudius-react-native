@@ -16,8 +16,6 @@ const AuthResponseSchema = z.object({
 
 export async function login(email: string, password: string): Promise<UserAuthResponse> {
   try {
-    console.log("email", email);
-    console.log("password", password);
     const response = {
       token: "1234567890",
       user: {
@@ -31,16 +29,16 @@ export async function login(email: string, password: string): Promise<UserAuthRe
     if (!parsed.success) {
       throw new Error("Response validation failed: " + z.treeifyError(parsed.error));
     }
+
     return Promise.resolve(parsed.data);
   } catch (err) {
-    console.error('[API] Login :', err);
+    console.error('[API] Login:', err);
     return Promise.reject(err);
   }
 }
 
 export async function signUp(payload: UserSignUpPayload): Promise<UserAuthResponse> {
   try {
-    console.log("payload", payload);
     const response = {
       token: "1234567890",
       user: {
@@ -48,13 +46,15 @@ export async function signUp(payload: UserSignUpPayload): Promise<UserAuthRespon
         email: "john.doe@example.com",
       },
     };
+
     const parsed = AuthResponseSchema.safeParse(response);
     if (!parsed.success) {
       throw new Error("Response validation failed: " + z.treeifyError(parsed.error));
     }
+
     return Promise.resolve(parsed.data);
   } catch (err) {
-    console.error('[API] Sign up :', err);
+    console.error('[API] Sign up:', err);
     return Promise.reject(err);
   }
 }
