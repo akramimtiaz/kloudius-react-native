@@ -26,10 +26,9 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
 
   const signUp = async (payload: UserSignUpPayload) => {
     try {
-      // add zod validation
-      const response = await authApi.signUp(payload);
-      setAuthToken(response.token);
-      setUser(response.user);
+      const { token, user } = await authApi.signUp(payload);
+      setAuthToken(token);
+      setUser(user);
     } catch (err) {
       console.error("Trying to signup:", err);
     }
@@ -37,10 +36,9 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
 
   const logIn = async (email: string, password: string) => {
     try {
-      // add zod validation
-      const response = await authApi.login(email, password);
-      setAuthToken(response.token);
-      setUser(response.user);
+      const { token, user } = await authApi.login(email, password);
+      setAuthToken(token);
+      setUser(user);
     } catch (err) {
       console.error("Trying to login:", err);
     }
