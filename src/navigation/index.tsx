@@ -19,7 +19,7 @@ const RootStack = createNativeStackNavigator({
       },
     },
     Unauthenticated: {
-      if: () => isLoggedIn,
+      if: () => !isLoggedIn,
       screens: {
         Login: LoginScreen,
         SignUp: SignUpScreen,
