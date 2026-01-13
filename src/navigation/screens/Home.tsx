@@ -1,5 +1,5 @@
 import { use } from "react";
-import { AuthContext } from "@/ contexts/auth-context";
+import { AuthContext } from "@/contexts/auth";
 import { Text } from "@react-navigation/elements";
 import { Button, View } from "react-native";
 

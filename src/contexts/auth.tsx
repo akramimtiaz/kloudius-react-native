@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, useEffect, useState } from "react";
+import { use, createContext, PropsWithChildren, useEffect, useState } from "react";
 import type { User, UserSignUpPayload } from "@/types/auth";
 import * as authApi from "@/api/auth";
 import * as authStorage from "@/utils/auth";
@@ -101,4 +101,13 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
       {children}
     </AuthContext.Provider>
   );
+}
+
+export function useIsAuthenticated() {
+  const { isAuthenticated } = use(AuthContext);
+  return isAuthenticated;
+}
+
+export function useIsUnauthenticated() {
+  return !useIsAuthenticated();
 }

@@ -1,5 +1,5 @@
 import { use } from "react";
-import { AuthContext } from "@/ contexts/auth-context";
+import { AuthContext } from "@/contexts/auth";
 import { View, Text, TextInput, Button } from 'react-native';
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";

@@ -1,4 +1,4 @@
-import { AuthContext } from "@/ contexts/auth-context";
+import { AuthContext } from "@/contexts/auth";
 import { TextInput } from "react-native";
 import { Typography } from "@/components/ui/typography";
 import { Link } from "@react-navigation/native";
@@ -9,7 +9,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const loginSchema = z.object({
-  email: z.email().nonempty("Email is required"),
+  email: z.email("Email is required"),
   password: z.string().nonempty("Password is required").min(6, "Password must be at least 6 characters"),
 });
 
