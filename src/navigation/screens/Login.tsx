@@ -1,6 +1,5 @@
 import { AuthContext } from "@/contexts/auth";
 import { TextInput } from "react-native";
-import { Typography } from "@/components/ui/typography";
 import { Link } from "@react-navigation/native";
 import { use } from "react";
 import { Button, Text, View } from "react-native";
@@ -37,8 +36,8 @@ export default function LoginScreen() {
   return (
     <View>
       <View>
-        <Typography>Login</Typography>
-        <Typography>Enter your email and password to log in.</Typography>
+        <Text>Login</Text>
+        <Text>Enter your email and password to log in.</Text>
       </View>
       <View>
         <Controller
@@ -90,7 +89,7 @@ export default function LoginScreen() {
         }}
       >
         <View />
-        <Typography>Or, Login With</Typography>
+        <Text>Or, Login With</Text>
         <View />
       </View>
       <View>
@@ -98,9 +97,9 @@ export default function LoginScreen() {
         <Button title="Facebook" />
       </View>
       <View>
-        <Typography>Dont have an account? </Typography>
+        <Text>Dont have an account? </Text>
         <Link screen="SignUp">
-          <Typography>Register</Typography>
+          <Text>Register</Text>
         </Link>
       </View>
     </View>

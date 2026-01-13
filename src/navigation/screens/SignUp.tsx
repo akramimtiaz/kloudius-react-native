@@ -4,7 +4,6 @@ import { View, Text, TextInput, Button } from 'react-native';
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Typography } from "@/components/ui/typography";
 import { Link } from "@react-navigation/native";
 
 const signUpSchema = z.object({
@@ -47,8 +46,8 @@ export default function SignUpScreen() {
   return (
     <View>
       <View>
-        <Typography>Sign Up</Typography>
-        <Typography>Create a new account to get started.</Typography>
+        <Text>Sign Up</Text>
+        <Text>Create a new account to get started.</Text>
       </View>
       <View>
         <Controller
@@ -125,9 +124,9 @@ export default function SignUpScreen() {
         />
       </View>
       <View>
-        <Typography>Already have an account? </Typography>
+        <Text>Already have an account? </Text>
         <Link screen="Login">
-          <Typography>Login</Typography>
+          <Text>Login</Text>
         </Link>
       </View>
     </View>
