@@ -4,6 +4,7 @@ import * as authApi from "@/api/auth";
 
 type AuthState = {
   isLoggedIn: boolean;
+  authToken?: string;
   user?: User;
   logIn: (email: string, password: string) => Promise<void>;
   logOut: () => void;
@@ -18,9 +19,10 @@ export const AuthContext = createContext<AuthState>({
 });
 
 export function AuthContextProvider({ children }: PropsWithChildren) {
+  const [authToken, setAuthToken] = useState<string | undefined>();
   const [user, setUser] = useState<User | undefined>();
   
-  const isLoggedIn = !!user;
+  const isLoggedIn = Boolean(authToken);
 
   const signUp = async (payload: UserSignUpPayload) => {
     try {
@@ -34,7 +36,7 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
   const logIn = async (email: string, password: string) => {
     try {
       // add zod validation
-      const response = await authApi.logIn(email, password);
+      const response = await authApi.login({ email, password });
       console.log("response", response);
     } catch (err) {
       console.error("Trying to login:", err);
@@ -50,6 +52,7 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
       value={{
         user,
         isLoggedIn,
+        authToken,
         logIn,
         logOut,
         signUp,

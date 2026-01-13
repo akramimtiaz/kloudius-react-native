@@ -1,27 +1,61 @@
-export type User = {
-  name: string;
-  email: string;
-};
+import { z } from "zod";
+import type {
+  UserLoginPayload,
+  UserLoginResponse,
+  UserSignUpPayload,
+  UserSignUpResponse,
+} from "@/types/auth";
 
-export type UserSignUpPayload = {
-  name: string;
-  email: string;
-  password: string;
-};
+const UserSchema = z.object({
+  name: z.string(),
+  email: z.email(),
+});
 
-export async function logIn(email: string, password: string) {
+const AuthResponseSchema = z.object({
+  token: z.string(),
+  user: UserSchema,
+});
+
+export async function login(payload: UserLoginPayload): Promise<UserLoginResponse> {
   try {
-    console.log("email", email);
-    console.log("password", password);
+    console.log("payload", payload);
+    const response = {
+      token: "1234567890",
+      user: {
+        name: "John Doe",
+        email: "john.doe@example.com",
+      },
+    };
+
+    const parsed = AuthResponseSchema.safeParse(response);
+
+    if (!parsed.success) {
+      throw new Error("Response validation failed: " + z.treeifyError(parsed.error));
+    }
+    return Promise.resolve(parsed.data);
   } catch (err) {
-    console.error(err);
+    console.error('[API] Login :', err);
+    return Promise.reject(err);
   }
 }
 
-export async function signUp(payload: UserSignUpPayload) {
+export async function signUp(payload: UserSignUpPayload): Promise<UserSignUpResponse> {
   try {
     console.log("payload", payload);
+    const response = {
+      token: "1234567890",
+      user: {
+        name: "John Doe",
+        email: "john.doe@example.com",
+      },
+    };
+    const parsed = AuthResponseSchema.safeParse(response);
+    if (!parsed.success) {
+      throw new Error("Response validation failed: " + z.treeifyError(parsed.error));
+    }
+    return Promise.resolve(parsed.data);
   } catch (err) {
-    console.error(err);
+    console.error('[API] Sign up :', err);
+    return Promise.reject(err);
   }
 }
