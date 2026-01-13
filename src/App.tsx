@@ -7,6 +7,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import * as React from 'react';
 import { useColorScheme } from 'react-native';
 import { Navigation } from './navigation';
+import { use } from 'react';
+import { AuthContext } from './ contexts/auth-context';
 
 Asset.loadAsync([
   ...NavigationAssets,
@@ -18,8 +20,16 @@ const prefix = createURL('/');
 
 export function App() {
   const colorScheme = useColorScheme();
+  const { isLoadingAuthData } = use(AuthContext);
+  const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
+  const [isNavigationReady, setIsNavigationReady] = React.useState(false);
 
-  const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme
+  // Hide splash screen only when both navigation and auth data are ready
+  React.useEffect(() => {
+    if (isNavigationReady && !isLoadingAuthData) {
+      SplashScreen.hideAsync();
+    }
+  }, [isNavigationReady, isLoadingAuthData]);
 
   return (
     <Navigation
@@ -29,7 +39,7 @@ export function App() {
         prefixes: [prefix],
       }}
       onReady={() => {
-        SplashScreen.hideAsync();
+        setIsNavigationReady(true);
       }}
     />
   );
