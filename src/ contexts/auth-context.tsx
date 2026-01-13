@@ -19,7 +19,8 @@ export const AuthContext = createContext<AuthState>({
 
 export function AuthContextProvider({ children }: PropsWithChildren) {
   const [user, setUser] = useState<User | undefined>();
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  
+  const isLoggedIn = !!user;
 
   const signUp = async (payload: UserSignUpPayload) => {
     try {
@@ -35,7 +36,6 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
       // add zod validation
       const response = await authApi.logIn(email, password);
       console.log("response", response);
-      setIsLoggedIn(true);
     } catch (err) {
       console.error("Trying to login:", err);
     }
