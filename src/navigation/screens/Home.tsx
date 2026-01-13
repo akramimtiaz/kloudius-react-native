@@ -7,11 +7,14 @@ export default function Home() {
 
   return (
     <View className="flex-1 py-16 px-8 bg-white items-stretch justify-between">
-      <View className="gap-2 items-center">
-        <Text className="text-2xl font-bold">Welcome Back</Text>
-        <Text className="text-4xl font-bold color-green-600">
-          {user?.name} 👋
-        </Text>
+      <View>
+        <View className="gap-2 items-center">
+          <Text className="text-2xl font-bold">Welcome Back</Text>
+          <Text className="text-4xl font-bold color-green-600">
+            {user?.name} 👋
+          </Text>
+        </View>
+        <Text className="self-center mt-4 text-slate-700">{user?.email}</Text>
       </View>
       <Pressable
         className="flex-row justify-center items-center self-stretch py-4 mt-4 bg-green-600 rounded-md"
