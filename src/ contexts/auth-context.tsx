@@ -4,7 +4,7 @@ import * as authApi from "@/api/auth";
 import * as authStorage from "@/utils/auth";
 
 type AuthState = {
-  isLoggedIn: boolean;
+  isAuthenticated: boolean;
   authToken?: string;
   user?: User;
   isLoadingAuthData: boolean;
@@ -14,7 +14,7 @@ type AuthState = {
 };
 
 export const AuthContext = createContext<AuthState>({
-  isLoggedIn: false,
+  isAuthenticated: false,
   isLoadingAuthData: true,
   login: async () => {},
   logOut: async () => {},
@@ -25,7 +25,8 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
   const [authToken, setAuthToken] = useState<string | undefined>();
   const [user, setUser] = useState<User | undefined>();
   const [isLoadingAuthData, setIsLoadingAuthData] = useState(true);
-  const isLoggedIn = Boolean(authToken);
+
+  const isAuthenticated = Boolean(authToken);
 
   useEffect(() => {
     const loadAuthData = async () => {
@@ -89,7 +90,7 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
     <AuthContext.Provider
       value={{
         user,
-        isLoggedIn,
+        isAuthenticated,
         authToken,
         isLoadingAuthData,
         login,
