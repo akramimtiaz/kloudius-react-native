@@ -1,5 +1,5 @@
 import { createContext, PropsWithChildren, useState } from "react";
-import type { User, UserSignUpPayload } from "@/api/auth";
+import type { User, UserSignUpPayload } from "@/types/auth";
 import * as authApi from "@/api/auth";
 
 type AuthState = {
@@ -27,7 +27,9 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
   const signUp = async (payload: UserSignUpPayload) => {
     try {
       // add zod validation
-      await authApi.signUp(payload);
+      const response = await authApi.signUp(payload);
+      setAuthToken(response.token);
+      setUser(response.user);
     } catch (err) {
       console.error("Trying to signup:", err);
     }
@@ -36,14 +38,16 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
   const logIn = async (email: string, password: string) => {
     try {
       // add zod validation
-      const response = await authApi.login({ email, password });
-      console.log("response", response);
+      const response = await authApi.login(email, password);
+      setAuthToken(response.token);
+      setUser(response.user);
     } catch (err) {
       console.error("Trying to login:", err);
     }
   };
 
   const logOut = () => {
+    setAuthToken(undefined);
     setUser(undefined);
   };
 

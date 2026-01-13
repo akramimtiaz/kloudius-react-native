@@ -1,9 +1,7 @@
 import { z } from "zod";
 import type {
-  UserLoginPayload,
-  UserLoginResponse,
+  UserAuthResponse,
   UserSignUpPayload,
-  UserSignUpResponse,
 } from "@/types/auth";
 
 const UserSchema = z.object({
@@ -16,9 +14,10 @@ const AuthResponseSchema = z.object({
   user: UserSchema,
 });
 
-export async function login(payload: UserLoginPayload): Promise<UserLoginResponse> {
+export async function login(email: string, password: string): Promise<UserAuthResponse> {
   try {
-    console.log("payload", payload);
+    console.log("email", email);
+    console.log("password", password);
     const response = {
       token: "1234567890",
       user: {
@@ -39,7 +38,7 @@ export async function login(payload: UserLoginPayload): Promise<UserLoginRespons
   }
 }
 
-export async function signUp(payload: UserSignUpPayload): Promise<UserSignUpResponse> {
+export async function signUp(payload: UserSignUpPayload): Promise<UserAuthResponse> {
   try {
     console.log("payload", payload);
     const response = {
