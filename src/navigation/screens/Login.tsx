@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Toast } from 'toastify-react-native';
 
 const loginSchema = z.object({
   email: z.email("Email is required"),
@@ -22,6 +23,7 @@ export default function LoginScreen() {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
@@ -32,12 +34,17 @@ export default function LoginScreen() {
     },
   });
 
-  const onSubmit = (data: LoginForm) => {
+  const onSubmit = async (data: LoginForm) => {
     setIsLoading(true);
     try {
-      login(data.email, data.password);
-    } catch (err) {
-      console.error(err);
+      await login(data.email, data.password);
+    } catch {
+      Toast.show({
+        type: 'error',
+        text1: "Invalid credentials",
+        text2: "Please try again.",
+      });
+      reset();
     } finally {
       setIsLoading(false);
     }
