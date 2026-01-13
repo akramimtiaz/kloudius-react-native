@@ -6,6 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigation } from "@react-navigation/native";
 import clsx from "clsx";
+import { Toast } from "toastify-react-native";
 
 const signUpSchema = z
   .object({
@@ -32,6 +33,7 @@ export default function SignUpScreen() {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<SignUpForm>({
     resolver: zodResolver(signUpSchema),
@@ -52,7 +54,12 @@ export default function SignUpScreen() {
         password: data.password,
       });
     } catch (err) {
-      console.error(err);
+      Toast.show({
+        type: 'error',
+        text1: "We couldn`t create your account right now.",
+        text2: "Please try again.",
+      });
+      reset();
     } finally {
       setIsLoading(false);
     }
