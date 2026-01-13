@@ -93,7 +93,7 @@ export default function LoginScreen() {
           <View className="gap-2">
             <Text className="text-base">Password</Text>
             <View className={clsx(
-              "flex-row items-center gap-2 justify-between py-3 px-2 border rounded-md border-green-600",
+              "flex-row items-center gap-2 justify-between py-3 px-4 border rounded-md border-green-600",
               errors.password && 'border-red-600'
             )}>
               <View className="flex-1">
@@ -104,7 +104,7 @@ export default function LoginScreen() {
                       onBlur={onBlur}
                       onChangeText={onChange}
                       value={value}
-                      secureTextEntry
+                      secureTextEntry={!isPasswordVisible}
                       autoCapitalize="none"
                       autoComplete="password"
                     />
