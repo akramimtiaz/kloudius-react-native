@@ -8,6 +8,7 @@ import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Toast } from 'toastify-react-native';
+import Feather from '@expo/vector-icons/Feather';
 
 const loginSchema = z.object({
   email: z.email("Email is required"),
@@ -18,7 +19,10 @@ type LoginForm = z.infer<typeof loginSchema>;
 
 export default function LoginScreen() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   const { login } = use(AuthContext);
+
+  const togglePasswordVisibility = () => setIsPasswordVisible((curr) => !curr);
 
   const {
     control,
@@ -89,23 +93,28 @@ export default function LoginScreen() {
           <View className="gap-2">
             <Text className="text-base">Password</Text>
             <View className={clsx(
-              "py-3 px-2 border rounded-md border-green-600",
+              "flex-row items-center gap-2 justify-between py-3 px-2 border rounded-md border-green-600",
               errors.password && 'border-red-600'
             )}>
-              <Controller
-                control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                    secureTextEntry
-                    autoCapitalize="none"
-                    autoComplete="password"
-                  />
-                )}
-                name="password"
-              />
+              <View className="flex-1">
+                <Controller
+                  control={control}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      secureTextEntry
+                      autoCapitalize="none"
+                      autoComplete="password"
+                    />
+                  )}
+                  name="password"
+                />
+              </View>
+              <Pressable onPress={togglePasswordVisibility}>
+                <Feather name={isPasswordVisible ? "eye-off" : "eye"} size={24} color="black" />
+              </Pressable>
             </View>
               {errors.password && <Text className="color-red-600 font-semibold">{errors.password.message}</Text>}
           </View>
