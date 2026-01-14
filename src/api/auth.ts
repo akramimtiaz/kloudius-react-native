@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { nanoid } from "nanoid";
 import type { UserAuthResponse, UserSignUpPayload } from "@/types/auth";
 
 const UserSchema = z.object({
@@ -35,9 +34,11 @@ export async function login(
     if (!user || user.password !== password) {
       throw new Error("Invalid credentials. Please check your details.");
     }
+
+    const token = 'auth-token';
   
     const response: UserAuthResponse = {
-      token: nanoid(),
+      token,
       user: {
         name: user.name,
         email: user.email,
@@ -74,8 +75,10 @@ export async function signUp(
 
     users.push(payload);
 
+    const token = 'auth-token';
+
     const response: UserAuthResponse = {
-      token: nanoid(),
+      token,
       user: {
         name: payload.name,
         email: payload.email,
