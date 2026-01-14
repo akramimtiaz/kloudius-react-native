@@ -1,6 +1,6 @@
 import { use, useState } from "react";
 import { AuthContext } from "@/contexts/auth";
-import { View, Text, TextInput, Pressable } from "react-native";
+import { View, Text, TextInput, Pressable, Platform, KeyboardAvoidingView, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
@@ -72,14 +72,22 @@ export default function SignUpScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-white">
-      <View className="flex-1 py-8 px-4 gap-4">
-        <View className="gap-2">
-          <Text className="text-2xl font-bold">Sign Up</Text>
-          <Text className="text-base color-slate-600">
-            Create a new account to get started.
-          </Text>
-        </View>
-        <View className="gap-5">
+      <KeyboardAvoidingView 
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        className="flex-1"
+      >
+        <ScrollView 
+          contentContainerStyle={{ flexGrow: 1 }}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View className="flex-1 py-8 px-4 gap-4">
+            <View className="gap-2">
+              <Text className="text-2xl font-bold">Sign Up</Text>
+              <Text className="text-base color-slate-600">
+                Create a new account to get started.
+              </Text>
+            </View>
+            <View className="gap-5">
           {/* Name */}
           <View className="gap-2">
             <Text className="text-base">Name</Text>
@@ -221,17 +229,19 @@ export default function SignUpScreen() {
             onPress={handleSubmit(onSubmit)}
           >
             <Text className="text-base color-white font-bold">Register</Text>
-          </Pressable>
-        </View>
-        <View className="flex-row justify-center pt-6">
-          <Text>Already have an account? </Text>
-          <Pressable onPress={() => navigation.goBack()}>
-            <Text className="underline font-semibold color-green-800">
-              Login
-            </Text>
-          </Pressable>
-        </View>
-      </View>
+              </Pressable>
+            </View>
+            <View className="flex-row justify-center pt-6">
+              <Text>Already have an account? </Text>
+              <Pressable onPress={() => navigation.goBack()}>
+                <Text className="underline font-semibold color-green-800">
+                  Login
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

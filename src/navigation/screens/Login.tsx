@@ -1,5 +1,5 @@
 import { AuthContext } from "@/contexts/auth";
-import { TextInput } from "react-native";
+import { TextInput, Platform, KeyboardAvoidingView, ScrollView } from "react-native";
 import { Link } from "@react-navigation/native";
 import { use, useState } from "react";
 import { Text, View, Pressable } from "react-native";
@@ -57,14 +57,22 @@ export default function LoginScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-white">
-      <View className="flex-1 py-8 px-4 gap-4">
-        <View className="gap-2">
-          <Text className="text-2xl font-bold">Login</Text>
-          <Text className="text-base color-slate-600">
-            Enter your email and password to log in.
-          </Text>
-        </View>
-        <View className="gap-5">
+      <KeyboardAvoidingView 
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        className="flex-1"
+      >
+        <ScrollView 
+          contentContainerStyle={{ flexGrow: 1 }}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View className="flex-1 py-8 px-4 gap-4">
+            <View className="gap-2">
+              <Text className="text-2xl font-bold">Login</Text>
+              <Text className="text-base color-slate-600">
+                Enter your email and password to log in.
+              </Text>
+            </View>
+            <View className="gap-5">
           {/* Email */}
           <View className="gap-2">
             <Text className="text-base">Email</Text>
@@ -127,15 +135,17 @@ export default function LoginScreen() {
             onPress={handleSubmit(onSubmit)}
           >
             <Text className="text-base color-white font-bold">Continue</Text>
-          </Pressable>
-        </View>
-        <View className="flex-row justify-center pt-6">
-          <Text>Dont have an account? </Text>
-          <Link screen="SignUp">
-            <Text className="underline font-semibold color-green-800">Register</Text>
-          </Link>
-        </View>
-      </View>
+              </Pressable>
+            </View>
+            <View className="flex-row justify-center pt-6">
+              <Text>Dont have an account? </Text>
+              <Link screen="SignUp">
+                <Text className="underline font-semibold color-green-800">Register</Text>
+              </Link>
+            </View>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
