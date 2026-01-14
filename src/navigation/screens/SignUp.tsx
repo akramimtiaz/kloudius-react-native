@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigation } from "@react-navigation/native";
 import clsx from "clsx";
 import { Toast } from "toastify-react-native";
+import Feather from '@expo/vector-icons/Feather';
 
 const signUpSchema = z
   .object({
@@ -28,7 +29,10 @@ type SignUpForm = z.infer<typeof signUpSchema>;
 export default function SignUpScreen() {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   const { signUp } = use(AuthContext);
+
+  const togglePasswordVisibility = () => setIsPasswordVisible((curr) => !curr);
 
   const {
     control,
@@ -141,24 +145,29 @@ export default function SignUpScreen() {
             <Text className="text-base">Password</Text>
             <View
               className={clsx(
-                "py-3 px-4 border rounded-md border-green-600",
+                "flex-row items-center gap-2 justify-between py-3 px-4 border rounded-md border-green-600",
                 errors.password && "border-red-600"
               )}
             >
-              <Controller
-                control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                    secureTextEntry
-                    autoCapitalize="none"
-                    autoComplete="password-new"
-                  />
-                )}
-                name="password"
-              />
+              <View className="flex-1">
+                <Controller
+                  control={control}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      secureTextEntry={!isPasswordVisible}
+                      autoCapitalize="none"
+                      autoComplete="password-new"
+                    />
+                  )}
+                  name="password"
+                />
+              </View>
+              <Pressable onPress={togglePasswordVisibility}>
+                <Feather name={isPasswordVisible ? "eye-off" : "eye"} size={24} color="black" />
+              </Pressable>
             </View>
             {errors.password && (
               <Text className="color-red-600 font-semibold">
@@ -172,24 +181,29 @@ export default function SignUpScreen() {
             <Text className="text-base">Confirm Password</Text>
             <View
               className={clsx(
-                "py-3 px-4 border rounded-md border-green-600",
+                "flex-row items-center gap-2 justify-between py-3 px-4 border rounded-md border-green-600",
                 errors.confirmPassword && "border-red-600"
               )}
             >
-              <Controller
-                control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                    secureTextEntry
-                    autoCapitalize="none"
-                    autoComplete="password-new"
-                  />
-                )}
-                name="confirmPassword"
-              />
+              <View className="flex-1">
+                <Controller
+                  control={control}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      secureTextEntry={!isPasswordVisible}
+                      autoCapitalize="none"
+                      autoComplete="password-new"
+                    />
+                  )}
+                  name="confirmPassword"
+                />
+              </View>
+              <Pressable onPress={togglePasswordVisibility}>
+                <Feather name={isPasswordVisible ? "eye-off" : "eye"} size={24} color="black" />
+              </Pressable>
             </View>
 
             {errors.confirmPassword && (
