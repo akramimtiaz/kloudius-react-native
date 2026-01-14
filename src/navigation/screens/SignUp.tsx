@@ -81,6 +81,13 @@ export default function SignUpScreen() {
           keyboardShouldPersistTaps="handled"
         >
           <View className="flex-1 py-8 px-4 gap-4">
+            <Pressable 
+              onPress={() => navigation.goBack()}
+              className="self-start pb-4"
+              accessibilityLabel="Go back to login"
+            >
+              <Feather name="chevron-left" size={28} color="black" />
+            </Pressable>
             <View className="gap-2">
               <Text className="text-2xl font-bold">Sign Up</Text>
               <Text className="text-base color-slate-600">
