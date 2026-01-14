@@ -1,12 +1,13 @@
 import { use } from "react";
 import { AuthContext } from "@/contexts/auth";
 import { Pressable, View, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home() {
   const { user, logOut } = use(AuthContext);
 
   return (
-    <View className="flex-1 py-16 px-8 bg-white items-stretch justify-between">
+    <SafeAreaView className="flex-1 py-16 px-8 bg-white items-stretch justify-between">
       <View>
         <View className="gap-2 items-center">
           <Text className="text-2xl font-bold">Welcome Back</Text>
@@ -22,6 +23,6 @@ export default function Home() {
       >
         <Text className="text-base color-white font-bold">Log Out</Text>
       </Pressable>
-    </View>
+    </SafeAreaView>
   );
 }

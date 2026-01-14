@@ -16,6 +16,9 @@ import { useColorScheme } from 'react-native';
 import { createURL } from 'expo-linking';
 
 const RootStack = createNativeStackNavigator({
+  screenOptions: {
+    headerShown: false,
+  },
   groups: {
     Authenticated: {
       if: useIsAuthenticated,

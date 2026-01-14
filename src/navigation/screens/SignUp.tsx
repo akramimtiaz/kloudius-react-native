@@ -1,6 +1,7 @@
 import { use, useState } from "react";
 import { AuthContext } from "@/contexts/auth";
 import { View, Text, TextInput, Pressable } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -70,7 +71,7 @@ export default function SignUpScreen() {
   };
 
   return (
-    <View className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-white">
       <View className="flex-1 py-8 px-4 gap-4">
         <View className="gap-2">
           <Text className="text-2xl font-bold">Sign Up</Text>
@@ -231,6 +232,6 @@ export default function SignUpScreen() {
           </Pressable>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

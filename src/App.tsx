@@ -4,6 +4,7 @@ import { Asset } from "expo-asset";
 import * as SplashScreen from "expo-splash-screen";
 import * as React from "react";
 import ToastManager from 'toastify-react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { RootNavigation } from "./navigation";
 import { AuthContextProvider } from "./contexts/auth";
@@ -14,11 +15,13 @@ SplashScreen.preventAutoHideAsync();
 
 export function App() {
   return (
-    <AuthContextProvider>
-      <React.Fragment>
-        <RootNavigation />
-        <ToastManager />
-      </React.Fragment>
-    </AuthContextProvider>
+    <SafeAreaProvider>
+      <AuthContextProvider>
+        <React.Fragment>
+          <RootNavigation />
+          <ToastManager />
+        </React.Fragment>
+      </AuthContextProvider>
+    </SafeAreaProvider>
   );
 }

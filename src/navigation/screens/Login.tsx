@@ -3,6 +3,7 @@ import { TextInput } from "react-native";
 import { Link } from "@react-navigation/native";
 import { use, useState } from "react";
 import { Text, View, Pressable } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import clsx from 'clsx';
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
@@ -55,7 +56,7 @@ export default function LoginScreen() {
   };
 
   return (
-    <View className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-white">
       <View className="flex-1 py-8 px-4 gap-4">
         <View className="gap-2">
           <Text className="text-2xl font-bold">Login</Text>
@@ -135,6 +136,6 @@ export default function LoginScreen() {
           </Link>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
