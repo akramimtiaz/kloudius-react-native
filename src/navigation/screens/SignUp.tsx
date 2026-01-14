@@ -26,7 +26,7 @@ const signUpSchema = z
 type SignUpForm = z.infer<typeof signUpSchema>;
 
 export default function SignUpScreen() {
-  const navigation = useNavigation(); 
+  const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { signUp } = use(AuthContext);
 
@@ -80,7 +80,7 @@ export default function SignUpScreen() {
             <Text className="text-base">Name</Text>
             <View
               className={clsx(
-                "py-3 px-2 border rounded-md border-green-600",
+                "py-3 px-4 border rounded-md border-green-600",
                 errors.name && "border-red-600"
               )}
             >
@@ -110,7 +110,7 @@ export default function SignUpScreen() {
             <Text className="text-base">Email</Text>
             <View
               className={clsx(
-                "py-3 px-2 border rounded-md border-green-600",
+                "py-3 px-4 border rounded-md border-green-600",
                 errors.email && "border-red-600"
               )}
             >
@@ -141,7 +141,7 @@ export default function SignUpScreen() {
             <Text className="text-base">Password</Text>
             <View
               className={clsx(
-                "py-3 px-2 border rounded-md border-green-600",
+                "py-3 px-4 border rounded-md border-green-600",
                 errors.password && "border-red-600"
               )}
             >
@@ -172,7 +172,7 @@ export default function SignUpScreen() {
             <Text className="text-base">Confirm Password</Text>
             <View
               className={clsx(
-                "py-3 px-2 border rounded-md border-green-600",
+                "py-3 px-4 border rounded-md border-green-600",
                 errors.confirmPassword && "border-red-600"
               )}
             >

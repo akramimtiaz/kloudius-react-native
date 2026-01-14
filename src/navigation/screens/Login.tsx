@@ -68,7 +68,7 @@ export default function LoginScreen() {
           <View className="gap-2">
             <Text className="text-base">Email</Text>
             <View className={clsx(
-              "py-3 px-2 border rounded-md border-green-600",
+              "py-3 px-4 border rounded-md border-green-600",
               errors.email && 'border-red-600'
             )}>
               <Controller
