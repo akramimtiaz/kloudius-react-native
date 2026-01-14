@@ -28,7 +28,6 @@ export default function LoginScreen() {
   const {
     control,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
@@ -49,7 +48,6 @@ export default function LoginScreen() {
         text1: "Invalid credentials",
         text2: "Please try again.",
       });
-      reset();
     } finally {
       setIsLoading(false);
     }
