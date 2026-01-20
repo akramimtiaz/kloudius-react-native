@@ -74,7 +74,7 @@ export default function SignUpScreen() {
     <SafeAreaView className="flex-1 bg-white">
       <KeyboardAvoidingView 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        className="flex-1"
+        contentContainerStyle={{ flexGrow: 1 }}
       >
         <ScrollView 
           contentContainerStyle={{ flexGrow: 1 }}
