@@ -1,13 +1,8 @@
+import { login, signUp } from "@/api/auth";
 import { UserSignUpPayload } from "@/types/auth";
 
 describe("authApi", () => {
-  beforeEach(() => {
-    jest.resetModules();
-  });
-
   test("login succeeds for seeded user", async () => {
-    const { login } = await import("@/api/auth");
-
     await expect(login("john.doe@example.com", "password")).resolves.toMatchObject({
       token: "auth-token",
       user: {
@@ -18,16 +13,12 @@ describe("authApi", () => {
   });
 
   test("login fails for invalid credentials", async () => {
-    const { login } = await import("@/api/auth");
-
     await expect(login("john.doe@example.com", "wrong")).rejects.toThrow(
       "Invalid credentials"
     );
   });
 
   test("signUp creates a new user and login succeeds", async () => {
-    const { signUp, login } = await import("@/api/auth");
-
     const payload: UserSignUpPayload = {
       name: "Jane Doe",
       email: "jane.doe@example.com",
@@ -51,8 +42,6 @@ describe("authApi", () => {
   });
 
   test("signUp fails when user already exists", async () => {
-    const { signUp } = await import("@/api/auth");
-
     const payload: UserSignUpPayload = {
       name: "Existing",
       email: "john.doe@example.com",
