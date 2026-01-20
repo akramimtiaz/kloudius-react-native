@@ -136,7 +136,7 @@ export default function LoginScreen() {
               </Pressable>
             </View>
             <View className="flex-row justify-center pt-6">
-              <Text>Dont have an account? </Text>
+              <Text>Don&apos;t have an account? </Text>
               <Link screen="SignUp">
                 <Text className="underline font-semibold color-green-800">Register</Text>
               </Link>

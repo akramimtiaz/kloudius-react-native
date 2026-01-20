@@ -50,10 +50,10 @@ export default function SignUpScreen() {
     },
   });
 
-  const onSubmit = (data: SignUpForm) => {
+  const onSubmit = async(data: SignUpForm) => {
     setIsLoading(true);
     try {
-      signUp({
+      await signUp({
         name: data.name,
         email: data.email,
         password: data.password,
